@@ -5,7 +5,6 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-
 # HISTORY
 setopt EXTENDED_HISTORY          # Write the history file in the ':start:elapsed;command' format.
 setopt HIST_EXPIRE_DUPS_FIRST    # Expire a duplicate event first when trimming history.
@@ -17,23 +16,24 @@ setopt HIST_SAVE_NO_DUPS         # Do not write a duplicate event to the history
 setopt SHARE_HISTORY             # Share history between all sessions.
 # # END HISTORY
 
-XDG_CACHE_HOME=$HOME/.cache
-ZSH_CUSTOM_PLUGINS=$XDG_CACHE_HOME/zsh/plugins
-ZSH_CUSTOM_COMPLETIONS=$XDG_CACHE_HOME/zsh/completions
-alias src='source'
-if [ -d $ZSH_CUSTOM_PLUGINS/zsh-defer ]; then
-  alias src='zsh-defer source'
-  source $ZSH_CUSTOM_PLUGINS/zsh-defer/zsh-defer.plugin.zsh
-fi
+# Created by Zap installer
+[ -f "${XDG_DATA_HOME:-$HOME/.local/share}/zap/zap.zsh" ] && source "${XDG_DATA_HOME:-$HOME/.local/share}/zap/zap.zsh"
 
+plug "esc/conda-zsh-completion"
+plug "zsh-users/zsh-autosuggestions"
+plug "hlissner/zsh-autopair"
+plug "zap-zsh/supercharge"
+plug "zap-zsh/zap-prompt"
+# plug "zap-zsh/fzf"
+# plug "zap-zsh/exa"
+plug "zsh-users/zsh-syntax-highlighting"
+plug "zsh-users/zsh-history-substring-search"
+plug "romkatv/powerlevel10k"
 
-if [ -d $ZSH_CUSTOM_PLUGINS/fast-syntax-highlighting ]; then
-  src $ZSH_CUSTOM_PLUGINS/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
-fi
+# Load and initialise completion system
+autoload -Uz compinit
+compinit
 
-if [ -d $ZSH_CUSTOM_PLUGINS/powerlevel10k ]; then
-  source $ZSH_CUSTOM_PLUGINS/powerlevel10k/powerlevel10k.zsh-theme
-fi
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
