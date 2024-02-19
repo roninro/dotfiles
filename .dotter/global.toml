@@ -1,0 +1,24 @@
+[helpers]
+color_rgb = ".dotter/helpers/color_rgb.rhai"
+
+[shell.files]
+# Optional local variables: email+git_username
+# git = "~/.gitconfig"
+# git_prompt = "~/.git_prompt"
+# bat = "~/.config/bat/config"
+ripgrep = { type = "symbolic", target = "~/.ripgreprc", if = '(is_executable "rg")'}
+
+[zsh]
+depends = ["shell"]
+
+[zsh.files]
+# conflicts with "bash"
+zprofile = "~/.zprofile"
+zshrc = "~/.zshrc"
+p10k = { target = "~/.p10k.zsh", type = "symbolic" }
+
+[helix.files]
+helix = { type = "symbolic", target = "~/.config/helix" }
+
+[kitty.files]
+kitty = { type = "symbolic", target = "~/.config/kitty" }

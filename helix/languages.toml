@@ -1,0 +1,37 @@
+[language-server]
+emmet-ls = { command = "emmet-ls", args = [ "--stdio" ]}
+
+[[language]]
+name = "go"
+formatter = { command = "goimports" }
+
+[[language]]
+name = "markdown"
+indent = { tab-width = 2, unit = "  " }
+formatter = { command = "dprint", args = ["fmt", "--stdin", "md"]}
+
+[[language]]
+name = "bash"
+file-types = ["config", "sh", "bash", "zsh", ".bash_login", ".bash_logout", ".bash_profile", ".bashrc", ".profile", ".zshenv", ".zlogin", ".zlogout", ".zprofile", ".zshrc", "APKBUILD", "PKGBUILD", "eclass", "ebuild", "bazelrc", ".bash_aliases"]
+
+# [language.config]
+# gofumpt = true
+# memoryMode = "DegradeClosed"
+# deepCompletion = true
+# staticcheck = true
+
+# [language.config.formatting]
+# gofumpt = true
+
+# [language.config.ui.completion]
+# usePlaceholders = true
+
+# [language.config.analyses]
+# fieldalignment = true
+# nilness = true
+# shadow = true
+# unusedparams = true
+# unreachable = true
+
+
+

@@ -1,0 +1,8 @@
+.DS_Store
+.zcompcache
+.zsh_sessions
+packer_compiled.lua
+helix/runtime
+
+.dotter/local.toml
+.dotter/cache.toml
