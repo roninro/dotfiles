@@ -94,7 +94,6 @@ alias gs-="git switch -"
 
 {{#if (is_executable "bat")}}
 alias cat="bat"
-export BAT_THEME="Catppuccin-macchiato"
 {{/if}}
 {{#if (is_executable "fzf")}}
 j ()  # Navigate with fzf

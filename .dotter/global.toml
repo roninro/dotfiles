@@ -4,8 +4,8 @@ color_rgb = ".dotter/helpers/color_rgb.rhai"
 [shell.files]
 # Optional local variables: email+git_username
 # git = "~/.gitconfig"
-bat = "~/.config/bat/config"
 ripgrep = { type = "symbolic", target = "~/.ripgreprc", if = '(is_executable "rg")'}
+bat = "~/.config/bat"
 
 [zsh]
 depends = ["shell"]
