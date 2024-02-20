@@ -16,6 +16,52 @@ setopt HIST_SAVE_NO_DUPS         # Do not write a duplicate event to the history
 setopt SHARE_HISTORY             # Share history between all sessions.
 # # END HISTORY
 
+#==> Aliases
+# ls
+{{#if (is_executable "eza")}}
+alias l="eza --time-style long-iso --color=auto -F"
+alias ll="l -ahl"
+{{else}}
+alias l="ls --color=auto -F"
+alias ll="l -Ahl"
+{{/if}}
+alias la="l -a"
+
+# Clearing screen
+alias c="echo -ne '\033c';"
+alias cl="c l"
+alias cll="c ll"
+
+# Interactive commands
+alias mv="mv -i"  # "m" - never forget
+alias cp="cp -i"
+
+# Move up quickly
+alias ..="cd .."
+alias ...="cd ../.."
+alias ....="cd ../../.."
+alias .5="cd ../../../.."
+alias .6="cd ../../../../.."
+alias .7="cd ../../../../../.."
+alias .8="cd ../../../../../../.."
+
+# Git
+alias ga="git add"
+alias gb="git branch"
+alias gca="git commit -a"
+alias gcam="git commit -am"
+alias gc="git commit"
+alias gcm="git commit -m"
+alias gd="git diff"
+alias gds="git diff --staged"
+alias glg="git log --all --oneline --graph --decorate"
+alias gpl="git pull --prune"
+alias gps="git push"
+alias gm="git merge"
+alias gs="git status -sb"
+alias gs-="git switch -"
+
+
 # Zap
 local ZAP_DIR="${XDG_DATA_HOME:-$HOME/.local/share}/zap"
 local BRANCH=release-v1

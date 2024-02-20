@@ -22,3 +22,6 @@ helix = { type = "symbolic", target = "~/.config/helix" }
 
 [kitty.files]
 kitty = { type = "symbolic", target = "~/.config/kitty" }
+
+[vim.files]
+vimrc = { type = "symbolic", target = "~/.vimrc" }
