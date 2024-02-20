@@ -1,0 +1,1 @@
+--map-syntax='vimrc:vim'

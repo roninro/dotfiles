@@ -16,6 +16,37 @@ setopt HIST_SAVE_NO_DUPS         # Do not write a duplicate event to the history
 setopt SHARE_HISTORY             # Share history between all sessions.
 # # END HISTORY
 
+# Zap
+local ZAP_DIR="${XDG_DATA_HOME:-$HOME/.local/share}/zap"
+local BRANCH=release-v1
+if [ ! -d "${ZAP_DIR}" ]; then
+    git clone -b "$BRANCH[-1]" https://github.com/zap-zsh/zap.git "$ZAP_DIR" &> /dev/null || { echo "❌ Git is a dependency for zap. Please install git and try again." && return 2 }
+fi
+
+# Created by Zap installer
+[ -f "${XDG_DATA_HOME:-$HOME/.local/share}/zap/zap.zsh" ] && source "${XDG_DATA_HOME:-$HOME/.local/share}/zap/zap.zsh"
+
+plug "esc/conda-zsh-completion"
+plug "zsh-users/zsh-autosuggestions"
+plug "hlissner/zsh-autopair"
+plug "zap-zsh/supercharge"
+plug "zap-zsh/zap-prompt"
+plug "zap-zsh/fzf"
+plug "zsh-users/zsh-syntax-highlighting"
+plug "zsh-users/zsh-history-substring-search"
+plug "romkatv/powerlevel10k"
+
+# Load and initialise completion system
+autoload -Uz compinit
+compinit
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+{{#if (is_executable "/opt/homebrew/bin/brew")}}
+eval "$(/opt/homebrew/bin/brew shellenv)"
+{{/if}}
+
 #==> Aliases
 # ls
 {{#if (is_executable "eza")}}
@@ -61,31 +92,24 @@ alias gm="git merge"
 alias gs="git status -sb"
 alias gs-="git switch -"
 
+{{#if (is_executable "bat")}}
+alias cat="bat"
+export BAT_THEME="Catppuccin-macchiato"
+{{/if}}
+{{#if (is_executable "fzf")}}
+j ()  # Navigate with fzf
+{
+    {{#if (is_executable "fd")}}
+    find_command='fd . ~ --type d'
+    {{else}}
+    # Settle for not hiding gitignored stuff
+    find_command='find ~ -type d'
+    {{/if}}
+    dir=$(eval $find_command | fzf --preview 'tree -CF -L 2 {+1}')
+    fzf_return=$?
+    [ $fzf_return = 0 ] && cd $dir || return $fzf_return
+}
+{{/if}}
 
-# Zap
-local ZAP_DIR="${XDG_DATA_HOME:-$HOME/.local/share}/zap"
-local BRANCH=release-v1
-if [ ! -d "${ZAP_DIR}" ]; then
-    git clone -b "$BRANCH[-1]" https://github.com/zap-zsh/zap.git "$ZAP_DIR" &> /dev/null || { echo "❌ Git is a dependency for zap. Please install git and try again." && return 2 }
-fi
-
-# Created by Zap installer
-[ -f "${XDG_DATA_HOME:-$HOME/.local/share}/zap/zap.zsh" ] && source "${XDG_DATA_HOME:-$HOME/.local/share}/zap/zap.zsh"
-
-plug "esc/conda-zsh-completion"
-plug "zsh-users/zsh-autosuggestions"
-plug "hlissner/zsh-autopair"
-plug "zap-zsh/supercharge"
-plug "zap-zsh/zap-prompt"
-# plug "zap-zsh/fzf"
-# plug "zap-zsh/exa"
-plug "zsh-users/zsh-syntax-highlighting"
-plug "zsh-users/zsh-history-substring-search"
-plug "romkatv/powerlevel10k"
-
-# Load and initialise completion system
-autoload -Uz compinit
-compinit
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+# Local zshrc
+[ -f ~/.zshrc.local ] && . ~/.zshrc.local
