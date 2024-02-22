@@ -50,13 +50,17 @@ eval "$(/opt/homebrew/bin/brew shellenv)"
 #==> Aliases
 # ls
 {{#if (is_executable "eza")}}
-alias l="eza --time-style long-iso --color=auto -F"
-alias ll="l -ahl"
+# alias l="eza --time-style long-iso --color=auto -F"
+# alias ll="l -ahl"
+alias ls='eza --group-directories-first --icons'
+alias ll='ls -lh --git'
+alias la='ll -a'
+alias tree='ll --tree --level=2'
+
 {{else}}
 alias l="ls --color=auto -F"
 alias ll="l -Ahl"
 {{/if}}
-alias la="l -a"
 
 # Clearing screen
 alias c="echo -ne '\033c';"
