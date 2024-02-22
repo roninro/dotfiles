@@ -76,8 +76,8 @@ Plug 'junegunn/vim-easy-align'
 
 Plug 'justinmk/vim-gtfo'
 
-Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
-  let g:mkdp_auto_close = 0
+" Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
+"  let g:mkdp_auto_close = 0
 
 " Git
 Plug 'tpope/vim-fugitive'
