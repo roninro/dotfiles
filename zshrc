@@ -55,7 +55,7 @@ eval "$(/opt/homebrew/bin/brew shellenv)"
 alias ls='eza --group-directories-first --icons'
 alias ll='ls -lh --git'
 alias la='ll -a'
-alias tree='ll --tree --level=2'
+alias tree='eza --tree --level=2'
 
 {{else}}
 alias l="ls --color=auto -F"
