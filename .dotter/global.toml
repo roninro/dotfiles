@@ -13,7 +13,7 @@ depends = ["shell"]
 [zsh.files]
 zprofile = "~/.zprofile"
 zshrc = "~/.zshrc"
-p10k = "~/.p10k.zsh"
+starship = { type = "symbolic", target = "~/.config/starship.toml", if = '(is_executable "starship")'}
 
 [helix.files]
 helix = { type = "symbolic", target = "~/.config/helix" }

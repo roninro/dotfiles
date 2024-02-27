@@ -16,12 +16,6 @@ setopt HIST_SAVE_NO_DUPS         # Do not write a duplicate event to the history
 setopt SHARE_HISTORY             # Share history between all sessions.
 # # END HISTORY
 
-# Homebrew
-{{#if (is_executable "/opt/homebrew/bin/brew")}}
-eval "$(/opt/homebrew/bin/brew shellenv)"
-FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
-{{/if}}
-
 # OrbStack
 [[ -d "/Applications/OrbStack.app/Contents/Resources/completions/zsh" ]] && FPATH="/Applications/OrbStack.app/Contents/Resources/completions/zsh:${FPATH}"
 
@@ -39,17 +33,19 @@ plug "zap-zsh/supercharge"
 plug "zsh-users/zsh-autosuggestions"
 plug "hlissner/zsh-autopair"
 plug "zap-zsh/zap-prompt"
+plug "wintermi/zsh-brew"
 plug "zap-zsh/fzf"
 plug "zsh-users/zsh-syntax-highlighting"
 plug "zsh-users/zsh-history-substring-search"
-plug "romkatv/powerlevel10k"
+plug "zsh-users/zsh-completions"
+{{#if (is_executable "starship")}}
+plug "wintermi/zsh-starship"
+{{/if}}
+plug "djui/alias-tips"
 
 # Load and initialise completion system
 autoload -Uz compinit
 compinit
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 #==> Aliases
 # ls
