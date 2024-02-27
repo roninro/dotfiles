@@ -16,6 +16,15 @@ setopt HIST_SAVE_NO_DUPS         # Do not write a duplicate event to the history
 setopt SHARE_HISTORY             # Share history between all sessions.
 # # END HISTORY
 
+# Homebrew
+{{#if (is_executable "/opt/homebrew/bin/brew")}}
+eval "$(/opt/homebrew/bin/brew shellenv)"
+FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
+{{/if}}
+
+# OrbStack
+[[ -d "/Applications/OrbStack.app/Contents/Resources/completions/zsh" ]] && FPATH="/Applications/OrbStack.app/Contents/Resources/completions/zsh:${FPATH}"
+
 # Zap
 local ZAP_DIR="${XDG_DATA_HOME:-$HOME/.local/share}/zap"
 local BRANCH=release-v1
@@ -26,10 +35,9 @@ fi
 # Created by Zap installer
 [ -f "${XDG_DATA_HOME:-$HOME/.local/share}/zap/zap.zsh" ] && source "${XDG_DATA_HOME:-$HOME/.local/share}/zap/zap.zsh"
 
-plug "esc/conda-zsh-completion"
+plug "zap-zsh/supercharge"
 plug "zsh-users/zsh-autosuggestions"
 plug "hlissner/zsh-autopair"
-plug "zap-zsh/supercharge"
 plug "zap-zsh/zap-prompt"
 plug "zap-zsh/fzf"
 plug "zsh-users/zsh-syntax-highlighting"
@@ -42,10 +50,6 @@ compinit
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
-{{#if (is_executable "/opt/homebrew/bin/brew")}}
-eval "$(/opt/homebrew/bin/brew shellenv)"
-{{/if}}
 
 #==> Aliases
 # ls

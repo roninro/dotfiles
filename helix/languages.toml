@@ -1,6 +1,9 @@
 [language-server]
 emmet-ls = { command = "emmet-ls", args = [ "--stdio" ]}
 
+[language-server.gopls.config]
+"formatting.gofumpt" = true
+
 [[language]]
 name = "go"
 formatter = { command = "goimports" }
