@@ -1,5 +1,14 @@
 # Dotfiles
 
+## Requirements
+
+- [Dotter](http://www.github.com/SuperCuber/dotter)
+
+## Usage
+
+run `dotter` in root directory
+
+
 ## Software
 
 ### General

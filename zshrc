@@ -1,10 +1,3 @@
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
 # HISTORY
 setopt EXTENDED_HISTORY          # Write the history file in the ':start:elapsed;command' format.
 setopt HIST_EXPIRE_DUPS_FIRST    # Expire a duplicate event first when trimming history.
@@ -52,7 +45,7 @@ compinit
 {{#if (is_executable "eza")}}
 # alias l="eza --time-style long-iso --color=auto -F"
 # alias ll="l -ahl"
-alias ls='eza --group-directories-first --icons'
+alias ls='eza --group-directories-first --icons auto'
 alias ll='ls -lh --git'
 alias la='ll -a'
 alias tree='eza --tree --level=2'
@@ -113,6 +106,9 @@ j ()  # Navigate with fzf
     [ $fzf_return = 0 ] && cd $dir || return $fzf_return
 }
 {{/if}}
+
+# Kitty ssh fix
+alias ssh="TERM=xterm-256color ssh"
 
 # Local zshrc
 [ -f ~/.zshrc.local ] && . ~/.zshrc.local

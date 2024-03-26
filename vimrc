@@ -6,17 +6,13 @@ if exists('+compatible') && &compatible
   set nocompatible
 endif
 
-let s:darwin = has('mac')
-let s:windows = has('win32') || has('win64')
 let mapleader      = ' '
 let maplocalleader = ' '
 
-let s:color = 'catppuccin-macchiato'
-let s:lightline_theme = 'catppuccin'
-
-let g:python3_host_prog='/usr/local/bin/python3'
-
+filetype plugin on
+syntax on
 " }}}
+
 " ============================================================================
 " VIM-PLUG {{{
 " ============================================================================
@@ -25,115 +21,30 @@ if empty(glob(data_dir . '/autoload/plug.vim'))
   silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
+call plug#begin(has('nvim') ? stdpath('data') . '/plugged' : '~/.vim/plugged')
 
-silent! if plug#begin()
-
-" Colors & icons
-Plug 'catppuccin/nvim', { 'as': 'catppuccin' }
-
-Plug 'ryanoasis/vim-devicons'
-  let g:WebDevIconsOS = 'Darwin'
-
-" Statusline
-Plug 'itchyny/lightline.vim'
-
-" Edit
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-commentary'
 
-Plug 'justinmk/vim-sneak'
-Plug 'AndrewRadev/splitjoin.vim'
-  let g:splitjoin_split_mapping = ''
-  let g:splitjoin_join_mapping = ''
-  nnoremap gss :SplitjoinSplit<cr>
-  nnoremap gsj :SplitjoinJoin<cr>
-
-Plug 'moll/vim-bbye'
-
-Plug 'LunarWatcher/auto-pairs'
-
-Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
-  augroup nerd_loader
-    autocmd!
-    autocmd VimEnter * silent! autocmd! FileExplorer
-    autocmd BufEnter,BufNew *
-          \  if isdirectory(expand('<amatch>'))
-          \|   call plug#load('nerdtree')
-          \|   execute 'autocmd! nerd_loader'
-          \| endif
-  augroup END
-  let g:NERDTreeDirArrowExpandable = ''
-  let g:NERDTreeDirArrowCollapsible = ''
-
-Plug 'preservim/tagbar', { 'on': 'TagbarToggle' }
-  let g:tagbar_sort = 0
-
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
-Plug 'junegunn/vim-easy-align'
-
-Plug 'justinmk/vim-gtfo'
-
-" Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
-"  let g:mkdp_auto_close = 0
-
-" Git
 Plug 'tpope/vim-fugitive'
   nmap     <Leader>g :Git<CR>gg<c-n>
   nnoremap <Leader>d :Gdiff<CR>
 
-" Lang
-Plug 'sheerun/vim-polyglot'
-  let g:go_highlight_function_calls = 1
-  let g:go_highlight_build_constraints = 1
-  let g:go_highlight_extra_types = 1
-  let g:go_highlight_fields = 1
-  let g:go_highlight_functions = 1
-  let g:go_highlight_methods = 1
-  let g:go_highlight_structs = 2
-  let g:go_def_mapping_enabled = 0
+Plug 'catppuccin/vim', { 'as': 'catppuccin' }
+Plug 'ryanoasis/vim-devicons'
+Plug 'preservim/nerdtree', { 'on': 'NERDTreeToggle' }
+Plug 'itchyny/lightline.vim'
 
-
-
-" golang
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-  let g:go_code_completion_enabled = 0
-  if has('nvim')
-    let g:go_term_enabled = 1
-  endif
-
-Plug 'prabirshrestha/asyncomplete.vim'
-Plug 'prabirshrestha/vim-lsp'
-Plug 'prabirshrestha/asyncomplete-lsp.vim'
-Plug 'mattn/vim-lsp-settings'
-Plug 'hrsh7th/vim-vsnip'
-Plug 'hrsh7th/vim-vsnip-integ'
-Plug 'rafamadriz/friendly-snippets'
-  imap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
-  smap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
-  " Expand or jump
-  imap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
-  smap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
-  " Jump forward or backward
-  imap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
-  smap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
-  imap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
-  smap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
-
-" Tools
-Plug 'dstein64/vim-startuptime', { 'on': 'StartupTime' }
+Plug 'fatih/vim-go'
 
 call plug#end()
-endif
 
 " }}}
 " ============================================================================
 " BASIC SETTINGS {{{
 " ============================================================================
-filetype plugin on
-syntax on
 
 set nu
 set autoindent
@@ -173,13 +84,7 @@ silent! set cryptmethod=blowfish2
 
 set updatetime=100
 
-" if has("nvim-0.5.0") || has("patch-8.1.1564")
-"   set signcolumn=number
-" else
-"   set signcolumn=yes
-" endif
 set signcolumn=yes
-
 
 set formatoptions+=1
 if has('patch-7.3.541')
@@ -199,11 +104,6 @@ endif
 
 set modelines=2
 set synmaxcol=1000
-
-" For MacVim
-set noimd
-set imi=1
-set ims=-1
 
 " ctags
 set tags=./tags;/
@@ -238,35 +138,27 @@ set nostartofline
 " FOOBAR=~/<CTRL-><CTRL-F>
 set isfname-==
 
-if !has('nvim')
-  if empty($TMUX)
-    let &t_SI = "\<Esc>]50;CursorShape=1\x7"
-    let &t_EI = "\<Esc>]50;CursorShape=0\x7"
-    let &t_SR = "\<Esc>]50;CursorShape=2\x7"
-  else
-    let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
-    let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
-    let &t_SR = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=2\x7\<Esc>\\"
-  endif
+if !has('gui_running')
+  set t_Co=256
 endif
 
-" support Italics
-let &t_ZH="\e[3m"
-let &t_ZR="\e[23m"
-
-" Windows Terminal
-if &term =~ "xterm"
-    let &t_SI = "\<Esc>[6 q"
-    let &t_SR = "\<Esc>[3 q"
-    let &t_EI = "\<Esc>[2 q"
-endif
+" 取消屏幕闪烁
 set vb t_vb=
 
-
+" }}}
+" ============================================================================
+" Colorscheme {{{
+" ============================================================================
 " colorscheme
 set background=dark
-execute 'colorscheme' s:color
+let s:lightline_theme = 'wombat'
+if has_key(g:plugs, 'catppuccin')
+colorscheme catppuccin_macchiato
+let s:lightline_theme = 'catppuccin_macchiato'
+endif
+
 " }}}
+
 " ============================================================================
 " Mapping {{{
 " ============================================================================
@@ -302,7 +194,6 @@ vnoremap <C-Q>     <esc>
 
 " Delete buffers and close files in Vim without closing your windows
 :nnoremap <Leader>q :Bdelete<CR>
-
 
 " Tags
 nnoremap <C-]> g<C-]>
@@ -430,29 +321,6 @@ endfunction
 command! Root call s:root()
 
 " ----------------------------------------------------------------------------
-" Todo
-" ----------------------------------------------------------------------------
-function! s:todo() abort
-  let entries = []
-  for cmd in ['git grep -niI -e TODO -e FIXME -e XXX 2> /dev/null',
-            \ 'grep -rniI -e TODO -e FIXME -e XXX * 2> /dev/null']
-    let lines = split(system(cmd), '\n')
-    if v:shell_error != 0 | continue | endif
-    for line in lines
-      let [fname, lno, text] = matchlist(line, '^\([^:]*\):\([^:]*\):\(.*\)')[1:3]
-      call add(entries, { 'filename': fname, 'lnum': lno, 'text': text })
-    endfor
-    break
-  endfor
-
-  if !empty(entries)
-    call setqflist(entries)
-    copen
-  endif
-endfunction
-command! Todo call s:todo()
-
-" ----------------------------------------------------------------------------
 " AutoSave
 " ----------------------------------------------------------------------------
 function! s:autosave(enable)
@@ -473,18 +341,13 @@ command! -bang AutoSave call s:autosave(<bang>1)
 " ============================================================================
 " PLUGINS {{{
 " ============================================================================
-
-" ----------------------------------------------------------------------------
-" lightline.vim {{{
-" ----------------------------------------------------------------------------
-
 if has_key(g:plugs, 'lightline.vim')
   let g:lightline = {
         \ 'colorscheme': s:lightline_theme,
         \ 'separator': { 'left': '', 'right': '' },
         \ 'active': {
         \   'left': [ [ 'mode', 'paste' ], [ 'filename' ], [ 'fugitive' ] ],
-        \   'right': [ [ 'lineinfo' ], [ 'percent' ], [ 'fileformat', 'fileencoding', 'filetype' ] ] 
+        \   'right': [ [ 'lineinfo' ], [ 'percent' ], [ 'fileformat', 'fileencoding', 'filetype' ] ]
         \ },
         \ 'component_function': {
         \   'fugitive': 'LightlineFugitive',
@@ -510,174 +373,14 @@ if has_key(g:plugs, 'lightline.vim')
 	endfunction
 	function! LightlineFugitive()
     if exists('*FugitiveHead')
-      let l:branch = fugitive#head()
-      return strchars(l:branch) ? ' ' . l:branch : ''
+      let l:branch = FugitiveHead()
+        return strchars(l:branch) ? ' ' . l:branch : ''
+		  endif
 		endif
 		return ''
   endfunction
 endif
 
-" }}}
-" ----------------------------------------------------------------------------
-" <Enter> | vim-easy-align {{{
-" ----------------------------------------------------------------------------
-let g:easy_align_delimiters = {
-\ '>': { 'pattern': '>>\|=>\|>' },
-\ '\': { 'pattern': '\\' },
-\ '/': { 'pattern': '//\+\|/\*\|\*/', 'delimiter_align': 'l', 'ignore_groups': ['!Comment'] },
-\ ']': {
-\     'pattern':       '\]\zs',
-\     'left_margin':   0,
-\     'right_margin':  1,
-\     'stick_to_left': 0
-\   },
-\ ')': {
-\     'pattern':       ')\zs',
-\     'left_margin':   0,
-\     'right_margin':  1,
-\     'stick_to_left': 0
-\   },
-\ 'f': {
-\     'pattern': ' \(\S\+(\)\@=',
-\     'left_margin': 0,
-\     'right_margin': 0
-\   },
-\ 'd': {
-\     'pattern': ' \ze\S\+\s*[;=]',
-\     'left_margin': 0,
-\     'right_margin': 0
-\   }
-\ }
-
-" Start interactive EasyAlign in visual mode
-xmap ga <Plug>(EasyAlign)
-
-" Start interactive EasyAlign with a Vim movement
-nmap ga <Plug>(EasyAlign)
-nmap gaa ga_
-
-xmap <Leader>ga <Plug>(LiveEasyAlign)
 
 " }}}
-" ----------------------------------------------------------------------------
-"  FZF {{{
-" ----------------------------------------------------------------------------
-
-let $FZF_DEFAULT_OPTS .= ' --inline-info'
-
-" All files
-command! -nargs=? -complete=dir AF
-  \ call fzf#run(fzf#wrap(fzf#vim#with_preview({
-  \   'source': 'fd --type f --hidden --follow --exclude .git --no-ignore . '.expand(<q-args>)
-  \ })))
-
-
-" let g:fzf_colors =
-" \ { 'fg':         ['fg', 'Normal'],
-"   \ 'bg':         ['bg', 'Normal'],
-"   \ 'preview-bg': ['bg', 'NormalFloat'],
-"   \ 'hl':         ['fg', 'Comment'],
-"   \ 'fg+':        ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-"   \ 'bg+':        ['bg', 'CursorLine', 'CursorColumn'],
-"   \ 'hl+':        ['fg', 'Statement'],
-"   \ 'info':       ['fg', 'PreProc'],
-"   \ 'border':     ['fg', 'Ignore'],
-"   \ 'prompt':     ['fg', 'Conditional'],
-"   \ 'pointer':    ['fg', 'Exception'],
-"   \ 'marker':     ['fg', 'Keyword'],
-"   \ 'spinner':    ['fg', 'Label'],
-"   \ 'header':     ['fg', 'Comment'] }
-
-if exists('$TMUX')
-  let g:fzf_layout = { 'tmux': '-p90%,60%' }
-else
-  let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
-endif
-
-command! -bar MoveBack if &buftype == 'nofile' && (winwidth(0) < &columns / 3 || winheight(0) < &lines / 3) | execute "normal! \<c-w>\<c-p>" | endif
-nnoremap <silent> <Leader><Leader> :MoveBack<BAR>Files<CR>
-nnoremap <silent> <Leader><Enter>  :MoveBack<BAR>Buffers<CR>
-" nnoremap <silent> <Leader>C        :Colors<CR>
-nnoremap <silent> <Leader>L        :Lines<CR>
-nnoremap <silent> <Leader>rg       :RG <C-R><C-W><CR>
-nnoremap <silent> <Leader>ff       :RG<CR>
-xnoremap <silent> <Leader>rg       y:AG <C-R>"<CR>
-nnoremap <silent> <Leader>`        :Marks<CR>
-
-
-imap <c-x><c-k> <plug>(fzf-complete-word)
-imap <c-x><c-f> <plug>(fzf-complete-path)
-inoremap <expr> <c-x><c-d> fzf#vim#complete#path('blsd')
-imap <c-x><c-j> <plug>(fzf-complete-file-rg)
-imap <c-x><c-l> <plug>(fzf-complete-line)
-
-" nmap <leader><tab> <plug>(fzf-maps-n)
-" xmap <leader><tab> <plug>(fzf-maps-x)
-" omap <leader><tab> <plug>(fzf-maps-o)
-
-function! s:plug_help_sink(line)
-  let dir = g:plugs[a:line].dir
-  for pat in ['doc/*.txt', 'README.md']
-    let match = get(split(globpath(dir, pat), "\n"), 0, '')
-    if len(match)
-      execute 'tabedit' match
-      return
-    endif
-  endfor
-  tabnew
-  execute 'Explore' dir
-endfunction
-
-command! PlugHelp call fzf#run(fzf#wrap({
-  \ 'source': sort(keys(g:plugs)),
-  \ 'sink':   function('s:plug_help_sink')}))
-
-
-function! RipgrepFzf(query, fullscreen)
-  let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case %s || true'
-  let initial_command = printf(command_fmt, shellescape(a:query))
-  let reload_command = printf(command_fmt, '{q}')
-  let options = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
-  let options = fzf#vim#with_preview(options, 'right', 'ctrl-/')
-  call fzf#vim#grep(initial_command, 1, options, a:fullscreen)
-endfunction
-
-command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
-
-" }}}
-
-" ----------------------------------------------------------------------------
-" lsp {{{
-" ----------------------------------------------------------------------------
-function! s:on_lsp_buffer_enabled() abort
-    setlocal omnifunc=lsp#complete
-    setlocal signcolumn=yes
-    if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
-    nmap <buffer> gd <plug>(lsp-definition)
-    nmap <buffer> gs <plug>(lsp-document-symbol-search)
-    nmap <buffer> gS <plug>(lsp-workspace-symbol-search)
-    nmap <buffer> gr <plug>(lsp-references)
-    nmap <buffer> gi <plug>(lsp-implementation)
-    nmap <buffer> gt <plug>(lsp-type-definition)
-    nmap <buffer> <leader>rn <plug>(lsp-rename)
-    nmap <buffer> [g <plug>(lsp-previous-diagnostic)
-    nmap <buffer> ]g <plug>(lsp-next-diagnostic)
-    nmap <buffer> K <plug>(lsp-hover)
-    nnoremap <buffer> <expr><c-f> lsp#scroll(+4)
-    nnoremap <buffer> <expr><c-d> lsp#scroll(-4)
-
-    let g:lsp_format_sync_timeout = 1000
-    autocmd! BufWritePre *.rs,*.go call execute('LspDocumentFormatSync')
-    
-    " refer to doc to add more commands
-endfunction
-
-augroup lsp_install
-    au!
-    " call s:on_lsp_buffer_enabled only for languages that has the server registered.
-    autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
-augroup END
-
-" }}}
-
 " ============================================================================
