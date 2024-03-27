@@ -90,7 +90,7 @@ alias gs="git status -sb"
 alias gs-="git switch -"
 
 {{#if (is_executable "bat")}}
-alias cat="bat"
+alias cat="bat -p"
 {{/if}}
 {{#if (is_executable "fzf")}}
 j ()  # Navigate with fzf
