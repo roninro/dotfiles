@@ -29,8 +29,8 @@ Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-commentary'
 
 Plug 'tpope/vim-fugitive'
-  nmap     <Leader>g :Git<CR>gg<c-n>
-  nnoremap <Leader>d :Gdiff<CR>
+nmap     <Leader>g :Git<CR>gg<c-n>
+nnoremap <Leader>d :Gdiff<CR>
 
 Plug 'catppuccin/vim', { 'as': 'catppuccin' }
 Plug 'ryanoasis/vim-devicons'
@@ -153,8 +153,8 @@ set vb t_vb=
 set background=dark
 let s:lightline_theme = 'wombat'
 if has_key(g:plugs, 'catppuccin')
-colorscheme catppuccin_macchiato
-let s:lightline_theme = 'catppuccin_macchiato'
+  colorscheme catppuccin_macchiato
+  let s:lightline_theme = 'catppuccin_macchiato'
 endif
 
 " }}}
@@ -228,7 +228,7 @@ function! s:zoom()
   if winnr('$') > 1
     tab split
   elseif len(filter(map(range(tabpagenr('$')), 'tabpagebuflist(v:val + 1)'),
-                  \ 'index(v:val, '.bufnr('').') >= 0')) > 1
+        \ 'index(v:val, '.bufnr('').') >= 0')) > 1
     tabclose
   endif
 endfunction
@@ -355,30 +355,30 @@ if has_key(g:plugs, 'lightline.vim')
         \ }
         \ }
   function! LightlineModified()
-		return &ft =~# 'help\|vimfiler' ? '' : &modified ? '+' : &modifiable ? '' : '-'
-	endfunction
-	function! LightlineReadonly()
-		return &ft !~? 'help\|vimfiler' && &readonly ? 'RO' : ''
-	endfunction
-	function! LightlineFilename()
+    return &ft =~# 'help\|vimfiler' ? '' : &modified ? '+' : &modifiable ? '' : '-'
+  endfunction
+  function! LightlineReadonly()
+    return &ft !~? 'help\|vimfiler' && &readonly ? 'RO' : ''
+  endfunction
+  function! LightlineFilename()
     let fname = expand('%:t')
-	  return fname ==# 'ControlP' && has_key(g:lightline, 'ctrlp_item') ? g:lightline.ctrlp_item :
-	        \ fname =~# '^__Tagbar__\|__Gundo\|NERD_tree|__vista__' ? '' :
-	        \ &ft ==# 'vimfiler' ? vimfiler#get_status_string() :
-	        \ &ft ==# 'unite' ? unite#get_status_string() :
-	        \ &ft ==# 'vimshell' ? vimshell#get_status_string() :
-	        \ (LightlineReadonly() !=# '' ? LightlineReadonly() . ' ' : '') .
-	        \ (fname !=# '' ? fname : '[No Name]') .
-	        \ (LightlineModified() !=# '' ? ' ' . LightlineModified() : '')
-	endfunction
-	function! LightlineFugitive()
+    return fname ==# 'ControlP' && has_key(g:lightline, 'ctrlp_item') ? g:lightline.ctrlp_item :
+          \ fname =~# '^__Tagbar__\|__Gundo\|NERD_tree|__vista__' ? '' :
+          \ &ft ==# 'vimfiler' ? vimfiler#get_status_string() :
+          \ &ft ==# 'unite' ? unite#get_status_string() :
+          \ &ft ==# 'vimshell' ? vimshell#get_status_string() :
+          \ (LightlineReadonly() !=# '' ? LightlineReadonly() . ' ' : '') .
+          \ (fname !=# '' ? fname : '[No Name]') .
+          \ (LightlineModified() !=# '' ? ' ' . LightlineModified() : '')
+  endfunction
+  function! LightlineFugitive()
     if exists('*FugitiveHead')
       let l:branch = FugitiveHead()
-        return strchars(l:branch) ? ' ' . l:branch : ''
-		  endif
-		endif
-		return ''
-  endfunction
+      return strchars(l:branch) ? ' ' . l:branch : ''
+    endif
+  endif
+  return ''
+endfunction
 endif
 
 

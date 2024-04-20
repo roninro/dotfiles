@@ -1,0 +1,4 @@
+" profile file ~/.vim/rc/*
+if 1
+  execute 'source' $"{'<sfile>'->expand()->fnamemodify(':h')}/rc/vimrc"
+endif

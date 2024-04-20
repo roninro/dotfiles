@@ -1,0 +1,109 @@
+
+[[plugins]]
+repo = 'Shougo/ddc.vim'
+depends = 'denops.vim'
+on_event = ['InsertEnter', 'CmdlineEnter']
+hooks_file = '$BASE_DIR/ddc.vim'
+
+[[plugins]]
+repo = 'Shougo/pum.vim'
+hook_source = '''
+  call pum#set_option(#{
+    \   auto_confirm_time: 0,
+    \   auto_select: v:false,
+    \   border: 'none',
+    \   commit_characters: ['.'],
+    \   follow_cursor: v:false,
+    \   highlight_scrollbar: 'None',
+    \   horizontal_menu: v:false,
+    \   max_width: 80,
+    \   offset_cmdcol: 0,
+    \   padding: v:false,
+    \   preview: v:true,
+    \   preview_width: 80,
+    \   reversed: v:false,
+    \   use_setline: v:false,
+    \ })
+
+  call pum#set_local_option('c', #{
+    \   horizontal_menu: v:false,
+    \ })
+
+  autocmd FileType ddu-ff-filter
+    \ call pum#set_buffer_option(#{
+    \   direction: 'above',
+    \ })
+'''
+
+[[plugins]]
+repo = 'Shougo/ddc-ui-native'
+on_source = 'ddc.vim'
+
+[[plugins]]
+repo = 'Shougo/ddc-ui-pum'
+depends = 'pum.vim'
+on_source = 'ddc.vim'
+
+[[plugins]]
+repo = 'Shougo/ddc-source-around'
+on_source = 'ddc.vim'
+
+[[plugins]]
+repo = 'Shougo/ddc-source-lsp'
+on_source = 'ddc.vim'
+
+[[plugins]]
+repo = 'uga-rosa/ddc-source-vsnip'
+on_source = 'ddc.vim'
+
+[[plugins]]
+repo = 'matsui54/ddc-source-buffer'
+on_source = 'ddc.vim'
+
+[[plugins]]
+repo = 'LumaKernel/ddc-source-file'
+on_source = 'ddc.vim'
+
+[[plugins]]
+repo = 'Shougo/ddc-source-cmdline'
+on_source = 'ddc.vim'
+
+[[plugins]]
+repo = 'Shougo/ddc-source-cmdline-history'
+on_source = 'ddc.vim'
+
+[[plugins]]
+repo = 'Shougo/ddc-source-omni'
+on_source = 'ddc.vim'
+
+[[plugins]]
+repo = 'Shougo/ddc-filter-matcher_head'
+on_source = 'ddc.vim'
+
+[[plugins]]
+repo = 'Shougo/ddc-filter-matcher_length'
+on_source = 'ddc.vim'
+
+[[plugins]]
+repo = 'Shougo/ddc-filter-matcher_vimregexp'
+on_source = 'ddc.vim'
+
+[[plugins]]
+repo = 'Shougo/ddc-filter-matcher_prefix'
+on_source = 'ddc.vim'
+
+[[plugins]]
+repo = 'Shougo/ddc-filter-sorter_rank'
+on_source = 'ddc.vim'
+
+[[plugins]]
+repo = 'Shougo/ddc-filter-sorter_head'
+on_source = 'ddc.vim'
+
+[[plugins]]
+repo = 'Shougo/ddc-filter-converter_remove_overlap'
+on_source = 'ddc.vim'
+
+[[plugins]]
+repo = 'Shougo/ddc-filter-converter_truncate_abbr'
+on_source = 'ddc.vim'
