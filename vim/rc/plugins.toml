@@ -4,8 +4,8 @@ repo = 'Shougo/dein.vim'
 [[plugins]]
 repo = 'https://wsdjeg.net/git/dein-ui.vim/'
 
-[[plugins]]
-repo = 'kana/vim-operator-user'
+# [[plugins]]
+# repo = 'kana/vim-operator-user'
 
 [[plugins]]
 repo = 'rbtnn/vim-vimscript_indentexpr'
@@ -69,6 +69,9 @@ let g:denops#server#deno_args += ['--unstable-kv']
 '''
 
 [[plugins]]
+repo = 'tpope/vim-endwise'
+
+[[plugins]]
 repo = 'tpope/vim-commentary'
 on_event = 'CursorMoved'
 
@@ -91,8 +94,8 @@ function! s:on_lsp_buffer_enabled() abort
     nmap <buffer> [g <plug>(lsp-previous-diagnostic)
     nmap <buffer> ]g <plug>(lsp-next-diagnostic)
     nmap <buffer> K <plug>(lsp-hover)
-    nnoremap <buffer> <expr><c-f> lsp#scroll(+4)
-    nnoremap <buffer> <expr><c-d> lsp#scroll(-4)
+    " nnoremap <buffer> <expr><c-f> lsp#scroll(+4)
+    " nnoremap <buffer> <expr><c-d> lsp#scroll(-4)
 
     let g:lsp_format_sync_timeout = 1000
     autocmd! BufWritePre *.rs,*.go call execute('LspDocumentFormatSync')
@@ -136,4 +139,11 @@ smap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-T
 [[plugins]]
 repo = 'rafamadriz/friendly-snippets'
 
+[[plugins]]
+repo = 'mattn/vim-treesitter'
+build = 'cd cmd/treesitter-server && go build'
+#on_event = ['BufRead', 'CursorHold']
+# hooks_file = '$BASE_DIR/vim9.vim'
 
+[[plugins]]
+repo = 'machakann/vim-sandwich'

@@ -112,3 +112,4 @@ alias ssh="TERM=xterm-256color ssh"
 
 # Local zshrc
 [ -f ~/.zshrc.local ] && . ~/.zshrc.local
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

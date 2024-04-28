@@ -229,7 +229,7 @@ set ttyfast
 " For conceal.
 set conceallevel=2
 
-set colorcolumn=79
+set colorcolumn=119
 
 if '+previewpopup'->exists()
   set previewpopup=height:10,width:60
