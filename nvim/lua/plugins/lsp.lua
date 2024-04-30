@@ -60,18 +60,18 @@ return {
         -- pyright = {
         --   enabled = false,
         -- },
-        -- rust_analyzer = {
-        -- settings = {
-        --   ["rust-analyzer"] = {
-        --     procMacro = { enable = true },
-        --     cargo = { allFeatures = true },
-        --     checkOnSave = {
-        --       command = "clippy",
-        --       extraArgs = { "--no-deps" },
-        --     },
-        --   },
-        -- },
-        -- },
+        rust_analyzer = {
+          settings = {
+            ["rust-analyzer"] = {
+              procMacro = { enable = true },
+              cargo = { allFeatures = true },
+              checkOnSave = {
+                command = "clippy",
+                extraArgs = { "--no-deps" },
+              },
+            },
+          },
+        },
         yamlls = {
           settings = {
             yaml = {

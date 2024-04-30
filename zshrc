@@ -9,8 +9,7 @@ setopt HIST_SAVE_NO_DUPS         # Do not write a duplicate event to the history
 setopt SHARE_HISTORY             # Share history between all sessions.
 # # END HISTORY
 
-# OrbStack
-[[ -d "/Applications/OrbStack.app/Contents/Resources/completions/zsh" ]] && FPATH="/Applications/OrbStack.app/Contents/Resources/completions/zsh:${FPATH}"
+export EDITOR=nvim
 
 # Zap
 local ZAP_DIR="${XDG_DATA_HOME:-$HOME/.local/share}/zap"
@@ -27,14 +26,11 @@ plug "zsh-users/zsh-autosuggestions"
 plug "hlissner/zsh-autopair"
 plug "zap-zsh/zap-prompt"
 plug "wintermi/zsh-brew"
-plug "zap-zsh/fzf"
 plug "zsh-users/zsh-syntax-highlighting"
 plug "zsh-users/zsh-history-substring-search"
 plug "zsh-users/zsh-completions"
-{{#if (is_executable "starship")}}
-plug "wintermi/zsh-starship"
-{{/if}}
 plug "djui/alias-tips"
+plug "romkatv/powerlevel10k"
 
 # Load and initialise completion system
 autoload -Uz compinit
@@ -110,6 +106,6 @@ j ()  # Navigate with fzf
 # Kitty ssh fix
 alias ssh="TERM=xterm-256color ssh"
 
+[ -f ~/.p10k.zsh ] && . ~/.p10k.zsh
 # Local zshrc
 [ -f ~/.zshrc.local ] && . ~/.zshrc.local
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

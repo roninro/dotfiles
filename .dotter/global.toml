@@ -11,9 +11,9 @@ bat = "~/.config/bat"
 depends = ["shell"]
 
 [zsh.files]
-zprofile = "~/.zprofile"
+# zprofile = "~/.zprofile"
 zshrc = "~/.zshrc"
-starship = { type = "symbolic", target = "~/.config/starship.toml", if = '(is_executable "starship")'}
+# starship = { type = "symbolic", target = "~/.config/starship.toml", if = '(is_executable "starship")'}
 
 [helix.files]
 helix = { type = "symbolic", target = "~/.config/helix" }
